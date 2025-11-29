@@ -124,6 +124,9 @@
     <EmbeddedResource Include="Forms\FormAddOrder.resx">
       <DependentUpon>FormAddOrder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormListGods.resx">
+      <DependentUpon>FormListGods.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormListOrder.resx">
       <DependentUpon>FormListOrder.cs</DependentUpon>
     </EmbeddedResource>

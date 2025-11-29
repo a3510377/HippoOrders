@@ -7,6 +7,7 @@ namespace HippoOrders.Component
     public partial class CartProductShowcaseComponent : ProductShowcaseBase
     {
         public event EventHandler<QuantityChangedEventArgs> QuantityChanged;
+        private int lastQuantity = 1;
 
         public CartProductShowcaseComponent()
         {
@@ -36,7 +37,8 @@ namespace HippoOrders.Component
         private void CountInp_ValueChanged(object sender, EventArgs e)
         {
             UpdateTotalPrice();
-            QuantityChanged?.Invoke(this, new QuantityChangedEventArgs(this.Quantity));
+            QuantityChanged?.Invoke(this, new QuantityChangedEventArgs(this.Quantity, lastQuantity));
+            lastQuantity = this.Quantity;
         }
 
         private void UpdateTotalPrice()
@@ -90,10 +92,12 @@ namespace HippoOrders.Component
     public class QuantityChangedEventArgs : EventArgs
     {
         public int Quantity { get; }
+        public int OldQuantity { get; }
 
-        public QuantityChangedEventArgs(int quantity)
+        public QuantityChangedEventArgs(int quantity, int oldQuantity)
         {
             Quantity = quantity;
+            OldQuantity = oldQuantity;
         }
     }
 }

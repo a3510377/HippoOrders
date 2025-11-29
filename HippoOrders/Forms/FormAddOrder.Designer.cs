@@ -45,7 +45,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.addInpBox = new System.Windows.Forms.TextBox();
             this.submitBtn = new System.Windows.Forms.Button();
-            this.godsItemsBox = new System.Windows.Forms.FlowLayoutPanel();
+            this.godsBox = new System.Windows.Forms.Panel();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -260,25 +260,23 @@
             this.submitBtn.UseVisualStyleBackColor = true;
             this.submitBtn.Click += new System.EventHandler(this.SubmitBtn_Click);
             // 
-            // godsItemsBox
+            // godsBox
             // 
-            this.godsItemsBox.AutoScroll = true;
-            this.godsItemsBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.godsItemsBox.Location = new System.Drawing.Point(0, 0);
-            this.godsItemsBox.Name = "godsItemsBox";
-            this.godsItemsBox.Size = new System.Drawing.Size(515, 450);
-            this.godsItemsBox.TabIndex = 7;
+            this.godsBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.godsBox.Location = new System.Drawing.Point(0, 0);
+            this.godsBox.Name = "godsBox";
+            this.godsBox.Size = new System.Drawing.Size(515, 450);
+            this.godsBox.TabIndex = 7;
             // 
             // FormAddOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.godsItemsBox);
+            this.Controls.Add(this.godsBox);
             this.Controls.Add(this.panel3);
             this.Name = "FormAddOrder";
             this.Text = "FormAddOrder";
-            this.Load += new System.EventHandler(this.FormAddOrder_Load);
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -304,9 +302,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox totalPriceBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.FlowLayoutPanel godsItemsBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox nameInpBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel godsBox;
     }
 }

@@ -56,7 +56,7 @@
             this.priceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.priceLabel.Font = new System.Drawing.Font("新細明體", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.priceLabel.ForeColor = System.Drawing.Color.Red;
-            this.priceLabel.Location = new System.Drawing.Point(170, 31);
+            this.priceLabel.Location = new System.Drawing.Point(170, 35);
             this.priceLabel.Name = "priceLabel";
             this.priceLabel.Size = new System.Drawing.Size(80, 14);
             this.priceLabel.TabIndex = 5;

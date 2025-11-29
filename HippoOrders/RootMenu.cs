@@ -11,7 +11,7 @@ namespace HippoOrders
         private readonly FormListGods formListGods = new FormListGods();
         private readonly FormAddOrder formAddOrder = new FormAddOrder();
 
-        Form activeForm = null;
+        private Form activeForm = null;
 
         public RootMenu()
         {

@@ -4,86 +4,38 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using static HippoOrders.Forms.FormListGods;
 
 namespace HippoOrders.Forms
 {
     public partial class FormAddOrder : Form
     {
-        Dictionary<int, CartProductShowcaseComponent> carts = new Dictionary<int, CartProductShowcaseComponent>();
+        private readonly Dictionary<int, CartProductShowcaseComponent> Carts = new Dictionary<int, CartProductShowcaseComponent>();
+        private readonly FormListGods GodsForm = new FormListGods
+        {
+            TopLevel = false,
+            Dock = DockStyle.Fill,
+            ProductCursor = Cursors.Hand,
+            FormBorderStyle = FormBorderStyle.None,
+        };
 
         public FormAddOrder()
         {
             InitializeComponent();
+
+            GodsForm.ProductClickEvent += OnProductClick;
+            godsBox.Controls.Add(GodsForm);
+            GodsForm.Show();
         }
 
-        private void FormAddOrder_Load(object sender, EventArgs e)
+        private void OnProductClick(object targetItem, ProductClickEventArgs productClickEventArgs)
         {
-            LoadProductsFromDb();
-        }
+            if (!(targetItem is BasicProductShowcaseComponent targetItemComponent)) return;
+            ProductShowcaseBase productShowcaseBase = targetItemComponent;
 
-        private void LoadProductsFromDb()
-        {
-            godsItemsBox.Controls.Clear();
-
-            try
+            if (Carts.ContainsKey(productClickEventArgs.ProductID))
             {
-                using (SqlConnection conn = new SqlConnection(DbInitializer.GetConnectionString()))
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand("SELECT id, name, price, image FROM goods", conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var item = new BasicProductShowcaseComponent
-                                {
-                                    ProductID = (int)reader["id"],
-                                    ProductName = reader["name"].ToString(),
-                                    ProductPrice = (decimal)reader["price"],
-                                    Cursor = Cursors.Hand,
-                                    Tag = (int)reader["id"]
-                                };
-
-                                if (reader["image"] != DBNull.Value)
-                                {
-                                    byte[] imgBytes = (byte[])reader["image"];
-                                    item.SetImageFromBytes(imgBytes);
-                                }
-
-                                item.Click += OnProductClick;
-                                godsItemsBox.Controls.Add(item);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"讀取資料失敗: {ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void OnProductClick(object sender, EventArgs e)
-        {
-            Control clickedControl = sender as Control;
-            BasicProductShowcaseComponent targetItem = null;
-
-            while (clickedControl != null)
-            {
-                if (clickedControl is BasicProductShowcaseComponent item)
-                {
-                    targetItem = item;
-                    break;
-                }
-                clickedControl = clickedControl.Parent;
-            }
-
-            if (targetItem == null) return;
-
-            if (carts.ContainsKey(targetItem.ProductID))
-            {
-                var existingCartItem = carts[targetItem.ProductID];
+                var existingCartItem = Carts[productShowcaseBase.ProductID];
                 existingCartItem.Quantity += 1;
                 cartItemsBox.ScrollControlIntoView(existingCartItem);
                 return;
@@ -91,15 +43,15 @@ namespace HippoOrders.Forms
 
             var cartItem = new CartProductShowcaseComponent
             {
-                ProductID = targetItem.ProductID,
-                ProductName = targetItem.ProductName,
-                ProductPrice = targetItem.ProductPrice,
-                ProductImage = targetItem.ProductImage,
+                ProductID = productShowcaseBase.ProductID,
+                ProductName = productShowcaseBase.ProductName,
+                ProductPrice = productShowcaseBase.ProductPrice,
+                ProductImage = productShowcaseBase.ProductImage,
                 Dock = DockStyle.Top
             };
             cartItem.QuantityChanged += CartItem_QuantityChanged;
 
-            carts.Add(cartItem.ProductID, cartItem);
+            Carts.Add(cartItem.ProductID, cartItem);
             UpdateGrandTotal();
 
             cartItemsBox.Controls.Add(cartItem);
@@ -108,19 +60,32 @@ namespace HippoOrders.Forms
 
         private void CartItem_QuantityChanged(object sender, QuantityChangedEventArgs e)
         {
+            if (sender is CartProductShowcaseComponent cartItem && e.Quantity <= 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("確定要從購物車移除此商品嗎？", "確認移除", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult != DialogResult.Yes && e.OldQuantity > 0)
+                {
+                    cartItem.Quantity = e.OldQuantity > 0 ? e.OldQuantity : 1;
+                    return;
+                }
+
+                Carts.Remove(cartItem.ProductID);
+                cartItemsBox.Controls.Remove(cartItem);
+            }
+
             UpdateGrandTotal();
         }
 
         private void UpdateGrandTotal()
         {
-            decimal total = carts.Values.Sum(item => item.ProductPrice * item.Quantity);
+            decimal total = Carts.Values.Sum(item => item.ProductPrice * item.Quantity);
 
             totalPriceBox.Text = $"{total:N0}";
         }
 
         private void SubmitBtn_Click(object sender, EventArgs e)
         {
-            if (carts.Count == 0)
+            if (Carts.Count == 0)
             {
                 MessageBox.Show("購物車是空的，無法結帳！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -135,7 +100,7 @@ namespace HippoOrders.Forms
                 return;
             }
 
-            decimal finalTotalPrice = carts.Values.Sum(c => c.ProductPrice * c.Quantity);
+            decimal finalTotalPrice = Carts.Values.Sum(c => c.ProductPrice * c.Quantity);
 
             using (SqlConnection conn = new SqlConnection(DbInitializer.GetConnectionString()))
             {
@@ -165,7 +130,7 @@ namespace HippoOrders.Forms
                         INSERT INTO [items] (order_id, product_id, quantity) 
                         VALUES (@order_id, @product_id, @quantity);";
 
-                    foreach (var cartItem in carts.Values)
+                    foreach (var cartItem in Carts.Values)
                     {
                         using (SqlCommand cmd = new SqlCommand(insertItemSql, conn, transaction))
                         {
@@ -194,7 +159,7 @@ namespace HippoOrders.Forms
         private void ClearCart()
         {
             cartItemsBox.Controls.Clear();
-            carts.Clear();
+            Carts.Clear();
             UpdateGrandTotal();
         }
     }

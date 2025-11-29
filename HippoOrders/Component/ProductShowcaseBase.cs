@@ -67,23 +67,5 @@ namespace HippoOrders.Component
                 ImagePictureBoxControl.Image = null;
             }
         }
-
-        public async void LoadImageFromUrl(string url)
-        {
-            if (ImagePictureBoxControl == null) return;
-
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    var bytes = await client.GetByteArrayAsync(url);
-                    SetImageFromBytes(bytes);
-                }
-            }
-            catch
-            {
-                ImagePictureBoxControl.Image = null;
-            }
-        }
     }
 }
