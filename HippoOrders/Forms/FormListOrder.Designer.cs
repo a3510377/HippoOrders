@@ -33,6 +33,7 @@
             // 
             // ordersBox
             // 
+            this.ordersBox.AutoScroll = true;
             this.ordersBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ordersBox.Location = new System.Drawing.Point(0, 0);
             this.ordersBox.Name = "ordersBox";

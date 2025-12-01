@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace HippoOrders.Component
@@ -21,7 +22,7 @@ namespace HippoOrders.Component
         {
             _arrowBase = (Image)showListBtn.Image.Clone();
             userNameLab.Text = Order.Name;
-            infoTextLab.Text = $"{Order.Address} [{Order.Phone}]";
+            infoTextLab.Text = $"{Order.Address} [{FormatPhone(Order.Phone)}]";
             LoadOrderItems();
         }
 
@@ -102,6 +103,16 @@ namespace HippoOrders.Component
                 }
             }
             return list;
+        }
+
+        string FormatPhone(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone)) return phone;
+
+            string digits = new string(phone.Where(char.IsDigit).ToArray());
+            if (digits.Length != 10) return phone;
+
+            return $"{digits.Substring(0, 4)}-{digits.Substring(4, 3)}-{digits.Substring(7, 3)}";
         }
     }
 }
