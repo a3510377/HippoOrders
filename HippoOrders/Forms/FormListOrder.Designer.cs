@@ -28,30 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.ordersBox = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // panel1
+            // ordersBox
             // 
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(351, 415);
-            this.panel1.TabIndex = 0;
+            this.ordersBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ordersBox.Location = new System.Drawing.Point(0, 0);
+            this.ordersBox.Name = "ordersBox";
+            this.ordersBox.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.ordersBox.Size = new System.Drawing.Size(800, 450);
+            this.ordersBox.TabIndex = 0;
             // 
             // FormListOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.ordersBox);
             this.Name = "FormListOrder";
             this.Text = "FormListOrder";
+            this.Load += new System.EventHandler(this.FormListOrder_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel ordersBox;
     }
 }

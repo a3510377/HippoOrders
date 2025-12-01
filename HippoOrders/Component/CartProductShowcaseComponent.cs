@@ -87,6 +87,13 @@ namespace HippoOrders.Component
 
             container.Click += (s, args) => nud.Focus();
         }
+
+        public void DisableQuantityEditing()
+        {
+            addBtn.Visible = false;
+            subBtn.Visible = false;
+            countInp.Enabled = false;
+        }
     }
 
     public class QuantityChangedEventArgs : EventArgs

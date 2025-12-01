@@ -67,6 +67,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\BaseOrderShowcaseComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Component\BaseOrderShowcaseComponent.Designer.cs">
+      <DependentUpon>BaseOrderShowcaseComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Component\BasicProductShowcaseComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Component\CartProductShowcaseComponent.Designer.cs">
       <DependentUpon>CartProductShowcaseComponent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Component\OrderShowcaseBase.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Component\ProductShowcaseBase.cs">
       <SubType>UserControl</SubType>
@@ -101,12 +110,8 @@
     <Compile Include="Forms\FormListOrder.Designer.cs">
       <DependentUpon>FormListOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormOrderInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormOrderInfo.Designer.cs">
-      <DependentUpon>FormOrderInfo.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Models\OrderItemDetailModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="RootMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +120,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Component\BaseOrderShowcaseComponent.resx">
+      <DependentUpon>BaseOrderShowcaseComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Component\BasicProductShowcaseComponent.resx">
       <DependentUpon>BasicProductShowcaseComponent.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +178,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_drop_down_24dp_434343_FILL0_wght400_GRAD0_opsz24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

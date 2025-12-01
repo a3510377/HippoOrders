@@ -39,12 +39,7 @@ namespace HippoOrders
 
         private void RootMenu_Load(object sender, EventArgs e)
         {
-            OpenFormInRootPane(formListOrder);
-        }
-
-        private void CloseBtn_Click(object sender, EventArgs e)
-        {
-            Close();
+            OpenFormInRootPane(formAddOrder);
         }
 
         private void ListGodsBtn_Click(object sender, EventArgs e)
