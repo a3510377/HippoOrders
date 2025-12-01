@@ -38,7 +38,7 @@
             this.ordersBox.Location = new System.Drawing.Point(0, 0);
             this.ordersBox.Name = "ordersBox";
             this.ordersBox.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ordersBox.Size = new System.Drawing.Size(800, 450);
+            this.ordersBox.Size = new System.Drawing.Size(800, 440);
             this.ordersBox.TabIndex = 0;
             // 
             // FormListOrder
@@ -48,6 +48,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ordersBox);
             this.Name = "FormListOrder";
+            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.Text = "FormListOrder";
             this.Load += new System.EventHandler(this.FormListOrder_Load);
             this.ResumeLayout(false);
