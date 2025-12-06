@@ -68,9 +68,13 @@ namespace HippoOrders
             }
 
             Button activeButton = null;
-            if (activeForm is FormListGods) activeButton  = listGodsBtn;
-            else if (activeForm is FormAddOrder) activeButton  = addOrderBtn;
-            else if (activeForm is FormListOrder) activeButton  = listOrderBtn;
+            if (activeForm is FormListGods) activeButton = listGodsBtn;
+            else if (activeForm is FormAddOrder) activeButton = addOrderBtn;
+            else if (activeForm is FormListOrder listOrderForm)
+            {
+                activeButton = listOrderBtn;
+                listOrderForm.LoadOrdersFromDb();
+            }
 
             if (activeButton != null)
             {

@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             this.ordersBox = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.searchInp = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.searchBtn = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ordersBox
@@ -36,21 +43,80 @@
             this.ordersBox.AutoScroll = true;
             this.ordersBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ordersBox.Location = new System.Drawing.Point(0, 0);
+            this.ordersBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ordersBox.Name = "ordersBox";
-            this.ordersBox.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ordersBox.Size = new System.Drawing.Size(800, 440);
+            this.ordersBox.Padding = new System.Windows.Forms.Padding(13, 0, 27, 0);
+            this.ordersBox.Size = new System.Drawing.Size(1067, 550);
             this.ordersBox.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1067, 44);
+            this.panel1.TabIndex = 0;
+            // 
+            // searchInp
+            // 
+            this.searchInp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchInp.Location = new System.Drawing.Point(83, 5);
+            this.searchInp.Name = "searchInp";
+            this.searchInp.Size = new System.Drawing.Size(624, 25);
+            this.searchInp.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "搜尋名稱";
+            // 
+            // searchBtn
+            // 
+            this.searchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBtn.Location = new System.Drawing.Point(713, 4);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(75, 27);
+            this.searchBtn.TabIndex = 2;
+            this.searchBtn.Text = "搜尋";
+            this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.searchBtn);
+            this.panel2.Controls.Add(this.searchInp);
+            this.panel2.Location = new System.Drawing.Point(138, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(797, 36);
+            this.panel2.TabIndex = 3;
             // 
             // FormListOrder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 562);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.ordersBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormListOrder";
-            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 12);
             this.Text = "FormListOrder";
             this.Load += new System.EventHandler(this.FormListOrder_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -58,5 +124,10 @@
         #endregion
 
         private System.Windows.Forms.Panel ordersBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox searchInp;
+        private System.Windows.Forms.Button searchBtn;
+        private System.Windows.Forms.Panel panel2;
     }
 }
