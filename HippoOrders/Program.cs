@@ -13,7 +13,8 @@ namespace HippoOrders
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+            // 初始化資料庫
             DbInitializer.Initialize();
 
             Application.Run(new RootMenu());

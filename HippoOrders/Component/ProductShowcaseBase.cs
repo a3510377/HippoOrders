@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 using System.IO;
-using System.Net.Http;
 using System.Windows.Forms;
 
 namespace HippoOrders.Component
 {
+    // 商品展示基底元件
     public class ProductShowcaseBase : UserControl
     {
         protected virtual Label NameLabelControl => null;
@@ -27,6 +27,7 @@ namespace HippoOrders.Component
             get
             {
                 if (PriceLabelControl == null) return 0;
+                // 解析價格字串，去除貨幣符號和空白
                 decimal.TryParse(PriceLabelControl.Text.Replace("$", "").Trim(), out decimal v);
                 return v;
             }
@@ -57,6 +58,7 @@ namespace HippoOrders.Component
 
             try
             {
+                // 讀取圖片數據並設置圖片 (byte[] 轉 Image)
                 using (var ms = new MemoryStream(bytes))
                 {
                     ImagePictureBoxControl.Image = Image.FromStream(ms);

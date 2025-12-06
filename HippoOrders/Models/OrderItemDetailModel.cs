@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HippoOrders.Models
 {
+    // 交易明細資料
     public class OrderItemDetailModel
     {
         public string ProductName { get; set; }

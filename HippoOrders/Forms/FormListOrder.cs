@@ -30,6 +30,7 @@ namespace HippoOrders.Forms
             );
         }
 
+        // 從資料庫加載訂單並根據條件篩選
         public void LoadOrdersFromDb(
             string keyword,
             DateTime? startDate,
@@ -56,6 +57,7 @@ namespace HippoOrders.Forms
             }
         }
 
+        // 從資料庫中獲取訂單
         private List<OrderModel> GetOrdersFromDatabase(
             string keyword,
             DateTime? startDate,
@@ -104,13 +106,15 @@ namespace HippoOrders.Forms
                         {
                             while (reader.Read())
                             {
-                                OrderModel model = new OrderModel();
-                                model.ID = (int)reader["id"];
-                                model.Name = reader["name"].ToString();
-                                model.Address = reader["address"].ToString();
-                                model.Phone = reader["phone"].ToString();
-                                model.TotalPrice = (decimal)reader["total_price"];
-                                model.OrderDate = (DateTime)reader["order_date"];
+                                OrderModel model = new OrderModel
+                                {
+                                    ID = (int)reader["id"],
+                                    Name = reader["name"].ToString(),
+                                    Address = reader["address"].ToString(),
+                                    Phone = reader["phone"].ToString(),
+                                    TotalPrice = (decimal)reader["total_price"],
+                                    OrderDate = (DateTime)reader["order_date"]
+                                };
 
                                 list.Add(model);
                             }

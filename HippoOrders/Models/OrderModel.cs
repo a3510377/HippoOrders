@@ -2,6 +2,7 @@
 
 namespace HippoOrders.Models
 {
+    // 訂單資料
     public class OrderModel
     {
         public int ID { get; set; }

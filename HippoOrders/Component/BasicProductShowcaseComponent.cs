@@ -9,6 +9,7 @@ namespace HippoOrders.Component
         {
             InitializeComponent();
 
+            // 將子控制項的點擊事件綁定到父控制項的點擊事件
             foreach (Control c in this.Controls)
             {
                 c.Click += Child_Click;

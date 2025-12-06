@@ -8,12 +8,17 @@ namespace HippoOrders
 {
     public class DbInitializer
     {
+        // 資料庫資料夾
         private static string DbFolder => Path.Combine(Application.StartupPath, "db");
+        // 資料庫檔案路徑
         private static string DbFile => Path.Combine(DbFolder, "db.mdf");
+        // 日誌檔案路徑
         private static string LogFile => Path.Combine(DbFolder, "db_log.ldf");
 
+        // 主資料庫連接字串
         private readonly static string MasterConnStr = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True";
 
+        // 取得應用程式的資料庫連接字串
         public static string GetConnectionString()
         {
             return $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={DbFile};Integrated Security=True;Connect Timeout=30";
@@ -23,16 +28,22 @@ namespace HippoOrders
         {
             try
             {
+                // 確保資料庫資料夾存在
                 if (!Directory.Exists(DbFolder))
                 {
                     Directory.CreateDirectory(DbFolder);
                 }
 
+                // 如果資料庫檔案不存在，則建立資料庫和表格，並插入初始資料
                 if (!File.Exists(DbFile))
                 {
+                    // 將游標設為等待游標
                     Cursor.Current = Cursors.WaitCursor;
+                    // 建立資料庫
                     CreateDatabase();
+                    // 建立表格
                     CreateTables();
+                    // 插入初始資料
                     SeedData();
                 }
             }
@@ -47,6 +58,7 @@ namespace HippoOrders
             using (var conn = new SqlConnection(MasterConnStr))
             {
                 conn.Open();
+                // 建立資料庫
                 string sql = $@"
                     CREATE DATABASE [HippoOrdersDB]
                     ON PRIMARY (NAME=HippoOrders_Data, FILENAME = '{DbFile}')
@@ -64,6 +76,7 @@ namespace HippoOrders
             using (var conn = new SqlConnection(GetConnectionString()))
             {
                 conn.Open();
+                // 建立 orders、goods 和 items 表格
                 string sql = @"
                     CREATE TABLE [dbo].[orders] (
                         [id]          INT             IDENTITY(1,1) NOT NULL,
@@ -102,6 +115,7 @@ namespace HippoOrders
 
         private static void SeedData()
         {
+            // 初始商品資料
             var products = new[]
             {
                 new { Name = "招牌牛肉麵", Price = 120, Url = "https://placehold.co/300x200/png?text=Beef+Noodle" },
@@ -115,7 +129,9 @@ namespace HippoOrders
 
                 foreach (var p in products)
                 {
+                    // 下載圖片成為 bytes
                     byte[] imgBytes = GetImageFromUrl(p.Url);
+                    // 插入商品資料
                     string sql = "INSERT INTO [dbo].[goods] ([name], [price], [image]) VALUES (@name, @price, @image)";
                     using (var cmd = new SqlCommand(sql, conn))
                     {
